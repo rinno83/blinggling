@@ -1,0 +1,36 @@
+/**
+ *
+ * Apply Here your Custom CSS
+ *
+*/
+
+body {
+	
+}
+
+footer {
+	text-align: center;
+}
+
+.pagination {
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 10px;
+}
+
+.table-hover > thead > tr > th {
+	text-align: center;
+}
+
+.table-hover {
+	text-align: center;
+}
+
+.write-btn {
+	text-align: right;
+}
+
+.modal-footer {
+	margin-top: 0;
+}

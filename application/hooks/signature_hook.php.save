@@ -1,0 +1,226 @@
+<?php
+
+function signature_check() {
+	if($_SERVER['REQUEST_URI'] == '/' || $_SERVER['REQUEST_URI'] == '/chat')
+	{
+		return;
+	}
+
+	$result = array();
+	$code = 2;
+	$message = 'server error';
+	
+	$www_server = 'http://1.235.80.48:8080';
+	$member_server = 'http://1.235.80.48:8081';
+	$auth_server = 'http://1.235.80.48:8082';
+	$token_server = 'http://1.235.80.48:8083';
+	
+	//var_dump($_SERVER);
+	if(isset($_SERVER['HTTP_SIGNATURE']) && isset($_SERVER['HTTP_DATETIME']))
+	{
+		$signature = $_SERVER['HTTP_SIGNATURE'];
+		$request_url = $www_server.$_SERVER['REQUEST_URI'];
+		
+		$requst_datetime = $_SERVER['HTTP_DATETIME']; //1374058633
+		$server_datetime = time();
+		
+		$stringToSign = $request_url."\n".$requst_datetime;
+		$signatureVal = base64_encode(hash_hmac("sha1",utf8_encode($stringToSign), SECRET_KEY, true));
+		
+		//var_dump($signatureVal);
+		
+		if(($server_datetime - $requst_datetime) > 60)
+		{
+			$message = 'Invalid request datetime';
+		}
+		else if($signatureVal == $signature)
+		{
+			$uri = substr($_SERVER['REQUEST_URI'], 5);			
+			
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+			
+			if($uri == '/get_auth_code') //f0yPJwXCaym0ra2oFVaxzsj9AV8=
+			{
+				$param = array(
+					'phone' => isset($_POST['phone'])?$_POST['phone']:'',
+					'id' => isset($_POST['id'])?$_POST['id']:'',
+					'pw' => isset($_POST['pw'])?$_POST['pw']:''
+				);
+				
+				curl_setopt($ch, CURLOPT_URL, $auth_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );
+			}
+			else if($uri == '/simple_join') //yN/H80OhyXkIV41uFNUdXNPLsMM=
+			{
+				$param = array(
+					'phone' => isset($_POST['phone'])?$_POST['phone']:''
+				);
+				
+				curl_setopt($ch, CURLOPT_URL, $member_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}
+			else if($uri == '/join_phone') //yN/H80OhyXkIV41uFNUdXNPLsMM=
+			{
+				$param = array(
+					'phone' => isset($_POST['phone'])?$_POST['phone']:'',
+					'auth_code' => isset($_POST['auth_code'])?$_POST['auth_code']:'',
+					'uuid' => isset($_POST['uuid'])?$_POST['uuid']:'',					
+					'device' => $_SERVER['HTTP_DEVICE']
+				);
+				
+				curl_setopt($ch, CURLOPT_URL, $member_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}	
+			else if($uri == '/join_info') //WbyP502zt7HnSlnFuJd8jYZwzwQ=
+			{
+				$param = array(
+					'uuid' => isset($_POST['uuid'])?$_POST['uuid']:'',
+					'id' => isset($_POST['id'])?$_POST['id']:'',
+					'pw' => isset($_POST['pw'])?$_POST['pw']:'',
+					'email' => isset($_POST['email'])?$_POST['email']:'',
+					'device' => $_SERVER['HTTP_DEVICE']
+				);
+				
+				curl_setopt($ch, CURLOPT_URL, $member_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}	
+			else if($uri == '/login') //Nwc/VSuMRAps41oDPp4GSohdq00=
+			{
+				$param = array(
+					'id' => isset($_POST['id'])?$_POST['id']:'',
+					'pw' => isset($_POST['pw'])?$_POST['pw']:'',					
+					'token' => isset($_SERVER['HTTP_TOKEN'])?$_SERVER['HTTP_TOKEN']:''					
+				);				
+				
+				curl_setopt($ch, CURLOPT_URL, $auth_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}
+			else if($uri == '/regist_device') //Nwc/VSuMRAps41oDPp4GSohdq00=
+			{
+				$param = array(
+					'push_token' => isset($_POST['push_token'])?$_POST['push_token']:'',
+					'token' => isset($_SERVER['HTTP_TOKEN'])?$_SERVER['HTTP_TOKEN']:'',
+					'device' => isset($_SERVER['HTTP_DEVICE'])?$_SERVER['HTTP_DEVICE']:'',
+					'uuid' => isset($_POST['uuid'])?$_POST['uuid']:''
+				);				
+				
+				curl_setopt($ch, CURLOPT_URL, $member_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}
+			else if($uri == '/get_member_info') //Nwc/VSuMRAps41oDPp4GSohdq00=
+			{
+				$param = array(
+					'token' => isset($_SERVER['HTTP_TOKEN'])?$_SERVER['HTTP_TOKEN']:'',
+					'ids' => isset($_POST['ids'])?$_POST['ids']:''
+				);				
+				
+				curl_setopt($ch, CURLOPT_URL, $member_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}
+			else if($uri == '/set_member_info') //Nwc/VSuMRAps41oDPp4GSohdq00=
+			{
+				$param = array(
+					'token' => isset($_SERVER['HTTP_TOKEN'])?$_SERVER['HTTP_TOKEN']:'',
+					'id' => isset($_POST['id'])?$_POST['id']:'',
+					'pw' => isset($_POST['pw'])?$_POST['pw']:'',
+					'member_nick' => isset($_POST['member_nick'])?$_POST['member_nick']:'',
+					'profile_url' => isset($_POST['profile_url'])?$_POST['profile_url']:'',
+					'profile_thumb_url' => isset($_POST['profile_thumb_url'])?$_POST['profile_thumb_url']:''
+				);				
+				
+				curl_setopt($ch, CURLOPT_URL, $member_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}
+			else if($uri == '/profile_upload') //VnqUqNgEqoYIc5KIaN4QhWC7s6Q=
+			{
+				$param = array(
+					'token' => isset($_SERVER['HTTP_TOKEN'])?$_SERVER['HTTP_TOKEN']:'',
+					'pf_file' => '@/'.$_FILES['pf_file']['tmp_name'].';filename='.$_FILES['pf_file']['name'].';type='.$_FILES['pf_file']['type']
+				);				
+				
+				curl_setopt($ch, CURLOPT_URL, $www_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}
+			else if($uri == '/chat_upload') //c8TUJoh/NFRsr5fEzPzTobxkElg=
+			{
+				$param = array(
+					'token' => isset($_SERVER['HTTP_TOKEN'])?$_SERVER['HTTP_TOKEN']:'',
+					'thread_key' => isset($_POST['thread_key'])?$_POST['thread_key']:'',
+					'chat_file' => '@/'.$_FILES['chat_file']['tmp_name'].';filename='.$_FILES['chat_file']['name'].';type='.$_FILES['chat_file']['type']
+				);				
+				
+				curl_setopt($ch, CURLOPT_URL, $www_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}
+			else if($uri == '/add_friend') //JgNzLK3I31znV57Hoy5Qm8W3sK0=
+			{
+				$param = array(
+					'token' => isset($_SERVER['HTTP_TOKEN'])?$_SERVER['HTTP_TOKEN']:'',
+					'friend_phone' => isset($_POST['friend_phone'])?$_POST['friend_phone']:''					
+				);				
+				
+				curl_setopt($ch, CURLOPT_URL, $member_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}
+			else if($uri == '/add_friends') //JgNzLK3I31znV57Hoy5Qm8W3sK0=
+			{
+				$param = array(
+					'token' => isset($_SERVER['HTTP_TOKEN'])?$_SERVER['HTTP_TOKEN']:'',
+					'friend_phones' => isset($_POST['friend_phones'])?$_POST['friend_phones']:''
+				);				
+				
+				curl_setopt($ch, CURLOPT_URL, $member_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}
+			else if($uri == '/friend_list') //JgNzLK3I31znV57Hoy5Qm8W3sK0=
+			{
+				$param = array(
+					'token' => isset($_SERVER['HTTP_TOKEN'])?$_SERVER['HTTP_TOKEN']:''					
+				);				
+				
+				curl_setopt($ch, CURLOPT_URL, $member_server.$uri);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $param );								
+			}			
+			else
+			{
+				$message = 'no action';
+			}
+			
+			$strQueryText = curl_exec($ch);
+			$info = curl_getinfo($ch);
+			curl_close($ch);
+			
+			//var_dump($strQueryText);
+			//var_dump($info);
+			
+			if($info['http_code'] == 200)
+			{
+				//$arResult = json_decode($strQueryText,true);	
+				echo $strQueryText;
+				return;
+			}				
+			else
+			{
+				$message = $info['http_code'];
+				return;	
+			}
+		}
+		else
+		{
+			//var_dump($signature);
+			$message = 'diffrent signature';
+		}
+	}
+	else
+	{
+		$message = 'no server value';
+	}
+	
+	get_instance()->output->set_content_type('application/json');
+	get_instance()->output->set_output(result_scal_json($code, $message, $result));
+}
+
+?>

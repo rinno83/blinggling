@@ -1,0 +1,15 @@
+{
+  "name": "NRG(미친물고기) 사용자용 API",
+  "description": "",
+  "version": "0.0.0",
+  "apidoc": {
+    "header": {
+      "title": "Common Infomation",
+      "filename": "header.md"
+    },
+    "footer": {
+      "title": "Response",
+      "filename": "footer.md"
+    }
+  }
+}

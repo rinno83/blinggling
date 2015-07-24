@@ -1,0 +1,20 @@
+@font-face {
+	font-family: 'BM_HANNA';
+	font-style: normal;
+	font-weight: 400;
+	src: local("☺");
+	src: url('../webfont/BM-HANNA.eot');
+	src: url('../webfont/BM-HANNA.eot?#iefix') format('embedded-opentype'),
+		 url('../webfont/BM-HANNA.woff') format('woff'),
+		 url('../webfont/BM-HANNA.otf') format('truetype');
+}
+@font-face {
+	font-family: 'KoPubDotum_ProMedium';
+	font-style: normal;
+	font-weight: 400;
+	src: local("☺");
+	src: url('../webfont/KoPubDotumMedium.eot');
+	src: url('../webfont/KoPubDotumMedium.eot?#iefix') format('embedded-opentype'),
+		 url('../webfont/KoPubDotumMedium.woff') format('woff'),
+		 url('../webfont/KoPubDotumMedium.ttf') format('truetype');
+}

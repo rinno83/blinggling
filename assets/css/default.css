@@ -1,0 +1,218 @@
+a img{border: none;}
+img {width: 100%;}
+
+a:link    {	text-decoration: none; color: #000000; }
+a:visited {	text-decoration: none; color: #000000; }
+a:hover   { text-decoration: none; color: #000000; }
+a:active  { text-decoration: none; color: #000000; }
+
+
+body
+{
+	background-color:#ffffff;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+
+	font-family : 돋움,Dotum;
+	font-size : 15px;
+	color: #333333;	
+	-webkit-text-size-adjust:none;
+} 
+
+
+table, tr, td {
+	font-family : 돋움,Dotum,;
+	font-size : 15px;
+	color: #333333;
+	line-height: 1.2;
+}
+
+
+
+/*------------------------------------------------------------------------------------------------*/
+/*	공통으로쓰는 스타일 Tag Style */
+/*------------------------------------------------------------------------------------------------*/
+
+.title_bg      {background:url('/assets/images/mobile/title_bg.gif');}
+.tr_bg_white   {background-color:#fff;}
+.tr_bg_gray    {background-color:#ededed;}
+.line_bg       {background-color:#f0f0f0; height:1px;}
+.ico_more      {width:32px;text-align:right;vertical-align:middle;padding-left:3px;padding-right:15px;}
+.ico_new      {width:32px;text-align:right;vertical-align:middle;}
+
+.txt_15_title  {font-family : 돋움,Dotum; font-size:21px; color:#ffffff; font-weight:bold; text-align:center;}
+
+.txt_15_g      {font-family: arial,돋움,Dotum; font-size: 15px; color: #222832; text-align:left; vertical-align:middle; padding:10px 8px 10px 8px;}
+
+.txt_15_b             {width:100%;font-family : 돋움,Dotum; font-size : 15px; color: #333333; text-align:left; vertical-align:middle; height:35px; padding:10px 0px 10px 15px;}
+.txt_15_b a:link      {font-family : 돋움,Dotum; font-size : 15px; color: #333333; text-align:left;}
+.txt_15_b a:visited   {font-family : 돋움,Dotum; font-size : 15px; color: #333333; text-align:left;}
+.txt_15_b a:hover     {font-family : 돋움,Dotum; font-size : 15px; color: #333333; text-align:left;}
+.txt_15_b a:active    {font-family : 돋움,Dotum; font-size : 15px; color: #333333; text-align:left;}
+.tr_bg_gray .txt_15_b{padding:15px;word-break:break-all;word-break:break-word;}
+
+.txt_body{float:left;width:70%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;display:inline-block;}
+
+.txt_12_b             {font-family : Arial,돋움,Dotum; font-size : 12px; color: #979797; float:right; padding-top:2px;}
+.txt_12_b a:link      {font-family : Arial,돋움,Dotum; font-size : 12px; color: #979797; text-align:left;}
+.txt_12_b a:visited   {font-family : Arial,돋움,Dotum; font-size : 12px; color: #979797; text-align:left;}
+.txt_12_b a:hover     {font-family : Arial,돋움,Dotum; font-size : 12px; color: #979797; text-align:left;}
+.txt_12_b a:active    {font-family : Arial,돋움,Dotum; font-size : 12px; color: #979797; text-align:left;}
+
+.box_w {   
+				 height: 38px;
+				 background-color: #ffffff;
+				 border-radius: 5px;				 
+				
+}
+
+.box_w_68_new {  background-image:url(/assets/images/mobile/ico_new.png); 
+  				 background-repeat:no-repeat; 
+				 background-size:30px 30px;
+				 height: 68px;
+				 background-color: #ffffff;
+				 border-radius: 5px;
+				 
+}
+
+.box_w_68 {      height: 68px;
+				 background-color: #ffffff;
+				 border-radius: 5px;
+				 
+}
+.box_w_40 {      height: 40px;
+				 background-color: #ffffff;
+				 border-radius: 5px;
+				 
+}
+
+.box_w_74 {      height: 74px;
+				 background-color: #ffffff;
+				 border-radius: 5px;
+				 
+}
+
+
+.box_w_icon {	 text-align:left; 
+				 vertical-align:middle;  padding-left:15px;
+}
+
+.box_w_item15 {	 font-family: arial,돋움,Dotum; 
+				 font-size:15px; 
+				 color:#222832; 
+				 font-weight:bold; 
+				 text-align:left; 
+				 vertical-align:middle;  padding-left:20px;
+}
+.box_w_item12 {	 font-family: arial,돋움,Dotum; 
+				 font-size:12px; 
+				 color:#90908f; 
+				 text-align:left; 
+				 vertical-align:middle;  padding-left:20px;
+}
+
+.btn_g1{		 background-repeat:no-repeat; 
+				 height: 26px;
+				 background-color: #ececec;
+				 border-radius: 3px;
+				 font-family: arial,돋움,Dotum; 
+				 font-size:15px; 
+				 color:#000000; 
+				 text-align:center; 
+				 vertical-align:middle;
+				 
+}
+.btn_g2{		 background-repeat:no-repeat; 
+				 height: 26px;
+				 background-color: #a3a1a1;
+				 border-radius: 3px;
+				 font-family: arial,돋움,Dotum; 
+				 font-size:15px; 
+				 color:#ffffff; 
+				 text-align:center; 
+				 vertical-align:middle;				 
+				 
+}
+
+.box_g {   
+				 height: 33px;
+				 background-color: #525250;
+				 border-radius: 5px;
+				 font-family: 돋움,Dotum; 
+				 font-size:15px; 
+				 color:#ffffff; 
+				 font-weight:bold; 
+				 text-align:left; 
+				 vertical-align:middle;  padding:0px 10px 0px 10px;
+				 		 
+				 
+}
+
+.box_y {   
+				 height: 33px;
+				 background-color: #faa41a;
+				 border-radius: 5px;
+				 font-family: 돋움,Dotum; 
+				 font-size:15px; 
+				 color:#ffffff; 
+				 font-weight:bold; 
+				 text-align:left; 
+				 vertical-align:middle;  padding:0px 10px 0px 10px;
+				 		 
+				 
+}
+
+
+
+.store               {background-color:#ededed;}
+
+.store_btn_chage     {  background-image:url(/assets/images/mobile/btn_charging.png); 
+						background-repeat:no-repeat; 
+						background-size:contain; 
+						font-family: 돋움,Dotum; 
+						font-size:18px; 
+						color:#ffffff; 
+						font-weight:bold; 
+						text-align:center; 
+						vertical-align:middle;    
+
+}
+.store_btn_enter     {  background-image:url(/assets/images/mobile/btn_enter.png); 
+						background-repeat:no-repeat; 
+						background-size:contain; 
+						font-family: 돋움,Dotum; 
+						font-size:18px; 
+						color:#ffffff; 
+						font-weight:bold; 
+						text-align:center; 
+						vertical-align:middle;    
+
+}
+					 
+.txt_point  		{font-family: arial,돋움,Dotum; 
+					 font-size:21px; 
+					 color:#525e89; 
+					 font-weight:bold; 
+					 text-align:right; 
+					 padding-right:8px;
+					 }
+					 
+					 
+.coupon_num   		{font-family: arial,돋움,Dotum;
+					 background-color:#ececec; 
+					 font-size: 12px; 
+					 color: #000000; 
+					 text-align:center; 
+					 vertical-align:middle; 
+					 height:21px; 					 
+					 padding:3px 0px 3px 0px;
+					 }					 
+.coupon-text {
+
+}
+
+.coupon_num_doogoon {
+
+}
