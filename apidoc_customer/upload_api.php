@@ -15,7 +15,7 @@
 	* @apiSuccessExample Success-Response:
 	* HTTP/1.1 200 OK
 	* {
-	* 	"url":"http://54.65.100.146/files/0000000011.jpg"  
+	* 	"url":"http://52.69.180.247/files/0000000011.jpg"  
 	* }
 	*
 	*/

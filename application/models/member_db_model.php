@@ -7,6 +7,127 @@
 			parent::__construct();
 		}
 		
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		//																							   //
+		//										계정 정보 등록											   //
+		//																							   //
+		///////////////////////////////////////////////////////////////////////////////////////////////// 
+
+		function set_member_account($member_key, $password, $name, $birthday, $gender, $profile_image_url) {
+			
+			try 
+			{
+				$reValue = array();
+				$resultSet2 = $this->db->query("CALL USP_SET_MEMBER_ACCOUNT('".$member_key."', '".$password."', '".$name."', '".$birthday."', '".$gender."', '".$profile_image_url."')");
+				
+				if(!$resultSet2)
+				{
+					throw new Exception('Could not query:' . mysql_error());
+				}
+				
+				if($resultSet2->num_rows() > 0)
+				{
+					$reValue = $resultSet2->result_array();
+				}
+				
+				$resultSet2->next_result(FALSE);
+				$resultSet2->free_result();
+				
+				return $reValue;
+
+			}
+			catch (Exception $e)
+			{
+				var_dump($e);
+				$resultSet2 = NULL;
+			}
+
+		}
+
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		//																							   //
+		//											로그인											   //
+		//																							   //
+		///////////////////////////////////////////////////////////////////////////////////////////////// 
+
+		function task_member_login($member_key, $password) {
+			
+			try 
+			{
+				$reValue = array();
+				
+				$this->db->select('xid, `name`, birthday, gender, profile_image_url AS profileImageUrl');
+				$this->db->from('member');
+				$this->db->where('`key`', $member_key);
+				$this->db->where('`password` = PASSWORD("'.$password.'")');
+				
+				$query = $this->db->get();
+			
+				if(!$query)
+				{
+					throw new Exception('Could not query:' . mysql_error());
+				}
+				
+				if($query->num_rows() > 0)
+				{
+					$reValue = $query->result_array();
+				}
+				
+				$query->next_result(FALSE);
+				$query->free_result();
+				
+				return $reValue;				
+			}
+			catch (Exception $e)
+			{
+				log_message('error', 'task_member_login db exception :: ' . $e);
+				$query = NULL;
+			}
+
+		}
+
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////
+		//																							   //
+		//										디바이스 설정											   //
+		//																							   //
+		///////////////////////////////////////////////////////////////////////////////////////////////// 
+
+		function set_member_device($xid, $device, $uuid, $push_token) {
+			
+			try 
+			{
+				$reValue = array();
+				$resultSet2 = $this->db->query("CALL USP_SET_MEMBER_DEVICE(".$xid.", '".$device."', '".$uuid."', '".$push_token."')");
+				
+				if(!$resultSet2)
+				{
+					throw new Exception('Could not query:' . mysql_error());
+				}
+				
+				if($resultSet2->num_rows() > 0)
+				{
+					$reValue = $resultSet2->result_array();
+				}
+				
+				$resultSet2->next_result(FALSE);
+				$resultSet2->free_result();
+				
+				return $reValue;
+
+			}
+			catch (Exception $e)
+			{
+				var_dump($e);
+				$resultSet2 = NULL;
+			}
+
+		}
+
+
+		
+		
 		
 		function get_member_device($xid) {
 			
@@ -248,91 +369,7 @@
 		}
 
 
-
-		function set_member_device($xid, $uuid, $device, $push_token) {
-			
-			try 
-			{
-				$reValue = array();
-				$resultSet2 = $this->db->query("CALL USP_SET_MEMBER_DEVICE(".$xid.", '".$uuid."', '".$device."', '".$push_token."')");
-				
-				if(!$resultSet2)
-				{
-					throw new Exception('Could not query:' . mysql_error());
-				}
-				
-				if($resultSet2->num_rows() > 0)
-				{
-					$reValue = $resultSet2->result_array();
-				}
-				
-				$resultSet2->next_result(FALSE);
-				$resultSet2->free_result();
-				
-				return $reValue;
-
-			}
-			catch (Exception $e)
-			{
-				var_dump($e);
-				$resultSet2 = NULL;
-			}
-		}
-
-		function set_member_account($email, $password, $name, $phone, $gender, $birthday) {
-			
-/*
-			try 
-			{
-				$this->db->set('email', $email);
-				$this->db->set('password', 'PASSWORD("'.$password.'")', false);
-				$this->db->set('phone', $phone);
-				
-				$this->db->insert('member');
-				
-				$xid = $this->db->insert_id();
-				
-				if($this->db->affected_rows() == -1)
-				{
-					log_message('error', 'set member db error :: ' . $this->db->_error_message());
-				}					
-				
-				return array('result_code' => $this->db->affected_rows(), 'xid' => $xid);
-			}
-			catch (Exception $e)
-			{
-				log_message('error', 'set_member_account db exception :: ' . $e);
-				$query = NULL;
-			}
-*/
-			try 
-			{
-				$reValue = array();
-				$resultSet2 = $this->db->query("CALL USP_SET_MEMBER_ACCOUNT('".$email."', '".$password."', '".$name."', '".$phone."', '".$gender."', '".$birthday."')");
-				
-				if(!$resultSet2)
-				{
-					throw new Exception('Could not query:' . mysql_error());
-				}
-				
-				if($resultSet2->num_rows() > 0)
-				{
-					$reValue = $resultSet2->result_array();
-				}
-				
-				$resultSet2->next_result(FALSE);
-				$resultSet2->free_result();
-				
-				return $reValue;
-
-			}
-			catch (Exception $e)
-			{
-				var_dump($e);
-				$resultSet2 = NULL;
-			}
-
-		}
+		
 
 
 		function set_member_point($xid, $type, $point) {

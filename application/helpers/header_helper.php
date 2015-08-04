@@ -96,6 +96,18 @@
 		}		
 	}
 	
+	function config_get()
+	{
+		$config = array();
+		$handle = fopen("config.properties", "r");
+		if($handle)
+		{
+			$config = json_decode(stream_get_contents($handle), TRUE);
+		}
+		
+		return $config;
+	}
+	
 	function set_req_log($api_name, $device, $parameter)
 	{
 		log_message('info', '/////////////////////////////////////////');

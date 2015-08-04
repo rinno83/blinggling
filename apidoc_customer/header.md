@@ -1,16 +1,10 @@
 ### Dev Server
 이름  | 내용
 :----------- | :-----------
-Server Host | http://pay.crazyfish.co.kr
-CMS Host | http://52.68.133.88:8889
-Server Upload Host | http://52.68.133.88
-Service-Key | 1093a9bd19fbb04c2925bc877af84b9c77f8ec76
-Secret-Key  | cfd9f3ed769a1462d5aef567437f0143
-모바일 공지사항 URL | [http://pay.crazyfish.co.kr/mobile/notice](http://52.68.20.211:8888/mobile/notice)
-모바일 FAQ URL | [http://pay.crazyfish.co.kr/mobile/faq](http://52.68.20.211:8888/mobile/faq)
-모바일 약관 URL | [http://pay.crazyfish.co.kr/mobile/terms](http://52.68.20.211:8888/mobile/terms)
-예약 정보 | [http://pay.crazyfish.co.kr/api/order/info/:orderCode](http://pay.crazyfish.co.kr/api/order/info/:orderCode)
-계좌 확인 | [http://pay.crazyfish.co.kr/pay/vbank/:orderCode](http://pay.crazyfish.co.kr/pay/vbank/:orderCode)
+Server Host | http://52.69.180.247:8888
+CMS Host | http://52.69.180.247:8889
+Server Upload Host | http://52.69.180.247
+Service-Key | 7011b2d6837379efaf8ce6fd78c7d862
 
 
 <br/>

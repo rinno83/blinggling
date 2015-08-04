@@ -3,9 +3,10 @@
 	{
 		// make access token
 		date_default_timezone_set('Asia/Seoul');
+		$config = config_get();
 		$extra_data = array(
-			'service_key' => get_instance()->config->item('service_key'),
-			'version' => get_instance()->config->item('version')
+			'service_key' => $config['service_key'],
+			'version' => $config['version']
 		);
 		$expire_date = date(strtotime('+7 day'));
 		
@@ -21,13 +22,14 @@
 	function check_token($access_token)
 	{
 		$result = 1;
+		$config = config_get();
 		$access_token_data = msgpack_unpack(base64_decode($access_token));
 		
-		if($access_token_data['data']['service_key'] != get_instance()->config->item('service_key'))
+		if($access_token_data['data']['service_key'] != $config['service_key'])
 		{
 			$result = 0;
 		}
-		else if($access_token_data['data']['version'] != get_instance()->config->item('version'))
+		else if($access_token_data['data']['version'] != $config['version'])
 		{
 			$result = 0;
 		}

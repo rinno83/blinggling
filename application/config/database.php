@@ -45,14 +45,16 @@
 | the active record class
 */
 
+$config = config_get();
+
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = get_instance()->config->item('mysql_host');
-$db['default']['port'] 	   = get_instance()->config->item('mysql_port');
-$db['default']['username'] = get_instance()->config->item('mysql_user');
-$db['default']['password'] = get_instance()->config->item('mysql_password');
-$db['default']['database'] = get_instance()->config->item('mysql_db');
+$db['default']['hostname'] = $config['mysql_host'];
+$db['default']['port'] 	   = $config['mysql_port'];
+$db['default']['username'] = $config['mysql_user'];
+$db['default']['password'] = $config['mysql_password'];
+$db['default']['database'] = $config['mysql_db'];
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
