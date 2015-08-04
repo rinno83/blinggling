@@ -82,7 +82,7 @@ class Complete extends REST_Controller {
 				
 		$path_parts = pathinfo($newPath);
 
-		echo $config['host'] . '/' . $path_parts['basename'];
+		echo 'http://' . $config['host'] . $config['file_path'] . $path_parts['basename'];
 	}
 }
 
