@@ -26,6 +26,7 @@ class Complete extends REST_Controller {
 	
 	public function index_post()
 	{
+/*
 		try
 		{
 			$file_name = $this->post('name');
@@ -52,6 +53,36 @@ class Complete extends REST_Controller {
 		{
 			log_message('error', 'file upload complete error message :: ' . $e->getMessage());
 		}
+*/
+		$config = config_get();
+		$name = $this->post('name');
+		$tmpPath = $this->post('path');
+		
+		$path_parts = pathinfo($tmpPath);
+		
+		$ext = pathinfo($name)['extension'];
+				
+		$newPath = $path_parts['dirname'] . "/" . uniqid(). "." .pathinfo($name)['extension'];
+		
+		rename($tmpPath, $newPath);
+		
+		if($ext == 'png' || $ext == 'jpg') {
+			$config['image_library'] = 'gd2';
+			$config['source_image']	= $newPath;
+			$config['create_thumb'] = TRUE;
+			$config['maintain_ratio'] = TRUE;
+			$config['width']	= 200;
+			$config['height']	= 200;
+							
+			$this->load->library('image_lib', $config);
+			
+			$this->image_lib->resize();	
+			$this->image_lib->clear();
+		}
+				
+		$path_parts = pathinfo($newPath);
+
+		echo $config['host'] . '/' . $path_parts['basename'];
 	}
 }
 
